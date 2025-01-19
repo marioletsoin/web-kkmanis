@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk kk manis😘❤️</title>
+    <style>
+        body {
+            background-image: none;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .hidden-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .hidden-content.show {
+            display: block;
+            opacity: 1;
+        }
+        .audio-player {
+            background: rgba(255, 182, 193, 0.7); /* Light pink background */
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .audio-player h2 {
+            margin: 0;
+            font-size: 0.8rem;
+            flex: 1;
+            text-align: center;
+            color: #FF69B4; /* Hot pink text */
+        }
+        .audio-player audio {
+            display: none;
+        }
+        .play-button {
+            width: 40px;
+            height: 40px;
+            background: #FF69B4; /* Hot pink background */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .play-button::before {
+            content: '▶';
+            font-size: 1.2rem;
+            color: white;
+        }
+        .play-button.playing::before {
+            content: '⏸';
+        }
+        .timestamp {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 182, 193, 0.7); /* Light pink background */
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #FF69B4; /* Hot pink text */
+        }
+        .envelope {
+            cursor: pointer;
+            background: #FF69B4; /* Hot pink background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        .envelope.hide {
+            transform: scale(0);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" id="envelope">
+        <h2>Klik aku dong kk😋</h2>
+    </div>
+    <div class="hidden-content" id="hiddenContent">
+        <div class="audio-player">
+            <div class="play-button"></div>
+            <h2>Now Playing: Blue Yung Kai</h2>
+            <audio src="blue-young-kai.mp3" autoplay loop></audio>
+        </div>
+        <div class="timestamp">00:00</div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const hiddenContent = document.getElementById('hiddenContent');
+        const playButton = document.querySelector('.play-button');
+        const audio = document.querySelector('audio');
+        const timestamp = document.querySelector('.timestamp');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('hide');
+            setTimeout(() => {
+                hiddenContent.classList.add('show');
+                document.body.style.backgroundImage = "url('rel.gif')";
+                audio.play();
+                playButton.classList.add('playing');
+            }, 1000); // Delay to match the transition duration
+        });
+
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playButton.classList.add('playing');
+            } else {
+                audio.pause();
+                playButton.classList.remove('playing');
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const minutes = Math.floor(audio.currentTime / 60);
+            const seconds = Math.floor(audio.currentTime % 60);
+            timestamp.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        });
+    </script>
+</body>
+</html>
